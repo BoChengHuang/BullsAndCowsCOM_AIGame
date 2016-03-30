@@ -9,17 +9,50 @@ namespace BullsAndCows
 {
     class Program
     {
-
         public static ArrayList list = new ArrayList();
         public static int count = 0;
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Mode 1: COM guess, Mode 2: Debug 1000 times, Which do you want?");
+            string mode = Console.ReadLine();
+
+            if (mode == "1") {
+                ComputerGuess();
+            } else if (mode == "2") {
+                DebugMode();
+            }
+
+            Console.ReadKey();
+        }
+
+        public static void DebugMode()
+        {
+
+            list = GenerateList();
+            ArrayList random = new ArrayList();
+
+            for (int i = 0; i < 1000; i++) {
+                random.Add(generateNumberFromList());
+            }
+
+            float sum = 0;
+            for (int i = 0; i < 1000; i++)
+            {
+                count = 0;
+                list = GenerateList();
+                while (!gameForDebug((int)random[i])) ;
+                sum += count;
+            }
+            Console.WriteLine("Avg Times: " + sum / 1000);
+
+        }
+
+        public static void ComputerGuess() {
+
             list = GenerateList();
 
             while (!game()) ;
-
-            Console.ReadKey();
         }
 
         public static ArrayList GenerateList()
@@ -37,12 +70,6 @@ namespace BullsAndCows
                 }
             }
 
-            /* Print list
-            for (int j = 0; j < list.Count; j++) {
-                Console.WriteLine(list[j]);
-            }*/
-
-            Console.WriteLine("Length: " + list.Count);
             return list;
         }
 
@@ -99,7 +126,8 @@ namespace BullsAndCows
 
         public static int generateNumberFromList() {
             int number = 0;
-            Random rnd = new Random();
+            //Random rnd = new Random();
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
             int index = rnd.Next(1, list.Count);
             number = (int)list[index];
             return number;
@@ -109,43 +137,85 @@ namespace BullsAndCows
             ArrayList newList = new ArrayList();
 
             for (int i = 0; i < list.Count; i++) {
-                int[] listArr = new int[4];
-                int[] guessArr = new int[4];
-                int bullsCount = 0;
-                int cowsCount = 0;
-                listArr[0] = (int)list[i] / 1000;
-                listArr[1] = ((int)list[i] / 100) % 10;
-                listArr[2] = ((int)list[i] / 10) % 10;
-                listArr[3] = (int)list[i] % 10;        
 
-                guessArr[0] = guess / 1000;
-                guessArr[1] = (guess / 100) % 10;
-                guessArr[2] = (guess / 10) % 10;
-                guessArr[3] = guess % 10;
+                ArrayList ab = new ArrayList();
+                ab = GetAB(guess, (int)list[i]);
 
-                for (int j = 0; j < 4; j++) {
-
-                    if (listArr[j] == guessArr[j])
-                    {
-                        bullsCount++;
-                    }
-                    else
-                    {
-                        for (int k = 0; k < 4; k++)
-                        {
-                            if (listArr[j] == guessArr[k])
-                                cowsCount++;
-                        }
-                    }
-                }
-
-                if (bull == bullsCount && cow == cowsCount) {
+                if (bull == (int)ab[0] && cow == (int)ab[1]) {
                     newList.Add(list[i]);
                 }
 
             }
 
             list = newList;
+        }
+
+        public static bool gameForDebug(int ans)
+        {
+            int guess = generateNumberFromList();
+            count++;
+
+            ArrayList ab = new ArrayList();
+            ab = GetAB(guess, ans);
+
+            int bull = (int)ab[0];
+            int cow = (int)ab[1];
+
+            if (bull < 0 || bull > 4 || cow < 0 || cow > 4)
+            {
+                return true;
+            }
+
+            checkList(bull, cow, guess);
+
+            if (list.Count == 1)
+            {
+                return true;
+            }
+            else if (list.Count == 0)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        public static ArrayList GetAB(int guess, int ans) {
+            ArrayList ab = new ArrayList();
+            int a = 0;
+            int b = 0;
+            int[] listArr = new int[4];
+            int[] guessArr = new int[4];
+            listArr[0] = ans / 1000;
+            listArr[1] = (ans / 100) % 10;
+            listArr[2] = (ans / 10) % 10;
+            listArr[3] = ans % 10;
+
+            guessArr[0] = guess / 1000;
+            guessArr[1] = (guess / 100) % 10;
+            guessArr[2] = (guess / 10) % 10;
+            guessArr[3] = guess % 10;
+
+            for (int i = 0; i < 4; i++) {
+                if (guessArr[i] == listArr[i])
+                {
+                    a++;
+                }
+                else {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (guessArr[j] == listArr[i]) {
+                            b++;
+                        }
+                    }
+                }
+            }
+
+            ab.Add(a);
+            ab.Add(b);
+
+            return ab;
         }
 
     }
