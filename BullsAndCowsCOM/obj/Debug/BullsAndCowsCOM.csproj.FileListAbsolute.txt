@@ -10,3 +10,9 @@ C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\o
 C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe
 C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.pdb
 C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
+C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe.config
+C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe
+C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.pdb
+C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
+C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.exe
+C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.pdb
