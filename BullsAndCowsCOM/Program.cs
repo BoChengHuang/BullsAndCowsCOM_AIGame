@@ -60,7 +60,11 @@ namespace BullsAndCows
         {
             int guess = generateNumberFromList();
             count++;
-            Console.WriteLine("Round " + count + ": " + guess + ", How many bulls and cows?");
+            string msg = guess.ToString();
+            if (msg.Count() == 3) {
+                msg = '0' + msg;
+            }
+            Console.WriteLine("Round " + count + ": " + msg +  ", How many bulls and cows?");
             string bulls = Console.ReadLine();
             string cows = Console.ReadLine();
             int bull = (int)char.GetNumericValue(bulls.ToCharArray()[0]);
@@ -76,7 +80,16 @@ namespace BullsAndCows
 
             if (list.Count == 1)
             {
+                Console.WriteLine("Round " + count + ": " + list[0] + ", How many bulls and cows?");
+                int a = (int)char.GetNumericValue(Console.ReadLine().ToCharArray()[0]);
+                int b = (int)char.GetNumericValue(Console.ReadLine().ToCharArray()[0]);
+                if (a != 4 || b != 0) {
+                    Console.WriteLine("You must type something wrong, try again...");
+                }
                 Console.WriteLine("Comupter Win! Your secret number is " + list[0]);
+                return true;
+            } else if (list.Count == 0){
+                Console.WriteLine("You must type something wrong, try again...");
                 return true;
             }
             else {
@@ -103,12 +116,12 @@ namespace BullsAndCows
                 listArr[0] = (int)list[i] / 1000;
                 listArr[1] = ((int)list[i] / 100) % 10;
                 listArr[2] = ((int)list[i] / 10) % 10;
-                listArr[3] = (int)list[i] % 10;
+                listArr[3] = (int)list[i] % 10;        
 
                 guessArr[0] = guess / 1000;
                 guessArr[1] = (guess / 100) % 10;
                 guessArr[2] = (guess / 10) % 10;
-                guessArr[3] = i % 10;
+                guessArr[3] = guess % 10;
 
                 for (int j = 0; j < 4; j++) {
 
@@ -120,13 +133,13 @@ namespace BullsAndCows
                     {
                         for (int k = 0; k < 4; k++)
                         {
-                            if (listArr[k] == guessArr[k])
+                            if (listArr[j] == guessArr[k])
                                 cowsCount++;
                         }
                     }
                 }
 
-                if (bull == bullsCount || cow == cowsCount) {
+                if (bull == bullsCount && cow == cowsCount) {
                     newList.Add(list[i]);
                 }
 

@@ -4,3 +4,9 @@ c:\users\cnslab-mac min-win10\documents\visual studio 2015\Projects\BullsAndCows
 c:\users\cnslab-mac min-win10\documents\visual studio 2015\Projects\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
 c:\users\cnslab-mac min-win10\documents\visual studio 2015\Projects\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.exe
 c:\users\cnslab-mac min-win10\documents\visual studio 2015\Projects\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.pdb
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe.config
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.exe
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.pdb
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.pdb
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
