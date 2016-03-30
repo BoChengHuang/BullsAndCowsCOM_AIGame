@@ -2,7 +2,7 @@
 
 Bulls and Cows game in Visual studio by C#.
 
-![C#](https://img.shields.io/badge/C#-14-orange.svg)
+![C#](https://img.shields.io/badge/C Sharp-.-orange.svg)
 ![Platforms Visula studio 2015 | Windows](https://img.shields.io/badge/Platforms-Visual%20Studio%2015%20%7C%20Windows%20-lightgray.svg)
 
 # What is this repository for? ###
