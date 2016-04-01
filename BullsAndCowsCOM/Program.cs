@@ -204,39 +204,27 @@ namespace BullsAndCows
                 return false;
             }
 
-            for (int i = 0; i < 4; i++)
-            {
-                int curguess = (int)char.GetNumericValue(guessed[i]);
-                if (curguess < 0 || curguess > 9)
-                {
-                    Console.WriteLine("Digit must be ge greater -1 and lower 10.");
-                    return false;
-                }
-
-                if (curguess == ans[i])
-                {
-                    bullsCount++;
-                }
-                else
-                {
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (curguess == ans[j])
-                            cowsCount++;
-                    }
-                }
+            int curAns = 0;
+            int curGuess = 0;
+            for (int i = 0; i < 4; i++) {
+                double dec = Math.Pow(10, 3 - i);
+                curAns = (int)(curAns + ans[i] * dec);
+                curGuess = (int)(curGuess + (int)char.GetNumericValue(guessed[i]) * dec);
             }
+
+            ArrayList ab = new ArrayList();
+            ab = GetAB(curGuess, curAns);
 
             CheckList(bullsCount, cowsCount, Convert.ToInt32(guess), false);
 
-            if (bullsCount == 4)
+            if ((int)ab[0] == 4)
             {
                 Console.WriteLine("Congratulations! You have won!");
                 return true;
             }
             else
             {
-                Console.WriteLine("{0} bulls and {1} cows", bullsCount, cowsCount);
+                Console.WriteLine("{0} bulls and {1} cows", (int)ab[0], (int)ab[1]);
                 return false;
             }
         }
