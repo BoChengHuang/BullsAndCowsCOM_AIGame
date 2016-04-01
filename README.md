@@ -20,6 +20,8 @@ Bulls and Cows game in Visual studio by C#.
 * Mode 3: Battle with computer lol.
 * Mode 4: Debug for custom number.
 
+# Mac Users: Can use [Mono](http://www.mono-project.com/docs/about-mono/languages/csharp/) to run in Terminal.
+
 
 # Contribution guidelines ###
 * Bo Cheng Huang
