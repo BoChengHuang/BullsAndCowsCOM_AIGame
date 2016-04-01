@@ -12,10 +12,14 @@ namespace BullsAndCows
         public static ArrayList list = new ArrayList();
         public static int count = 0;
 
+        public static ArrayList userList = new ArrayList();
+        public static int userCount = 0;
+
         static void Main(string[] args)
         {
             Console.WriteLine("Mode 1: COM guess.");
-            Console.WriteLine("Mode 2: Debug 1000 times.");
+            Console.WriteLine("Mode 2: Debug.");
+            Console.WriteLine("Mode 3: COM vs You.");
             Console.Write("Which do you want: ");
             string mode = Console.ReadLine();
 
@@ -23,6 +27,8 @@ namespace BullsAndCows
                 ComputerGuess();
             } else if (mode == "2") {
                 DebugMode();
+            } else if (mode == "3") {
+                Battle();
             }
 
             Console.ReadKey();
@@ -33,21 +39,68 @@ namespace BullsAndCows
 
             list = GenerateList();
             ArrayList random = new ArrayList();
+            int[] timeCount = Enumerable.Repeat(0, 10).ToArray();
 
-            for (int i = 0; i < 1000; i++) {
+            Console.Write("How many times do you want to run: ");
+            int times = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < times; i++) {
                 random.Add(GenerateNumberFromList());
             }
 
             float sum = 0;
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < times; i++)
             {
                 count = 0;
                 list = GenerateList();
                 while (!GameForDebug((int)random[i])) ;
                 sum += count;
+                timeCount[count]++;
             }
-            Console.WriteLine("Avg Times: " + sum / 1000);
+            Console.WriteLine("Avg Turns: " + sum / times + " Tunr(s).");
+            for (int i = 1; i < timeCount.Count(); i++) {
+                Console.WriteLine("Guees for " + i + " turn(s): " + timeCount[i]);
+            }
 
+        }
+
+        public static void Battle() {
+            Console.WriteLine("Guess mutual numbers, as soon as posiible.");
+            Console.WriteLine("");
+            Console.WriteLine("Human first...");
+
+            list = GenerateList();
+            userList = GenerateList();
+            bool userWin = false;
+            bool comWin = false;
+            int ansint = GenerateNumberFromList();
+
+            while (!userWin && !comWin) {
+
+                //Console.WriteLine(ansint);
+                int[] ans = new int[4];
+
+                ans[0] = ansint / 1000;
+                ans[1] = (ansint / 100) % 10;
+                ans[2] = (ansint / 10) % 10;
+                ans[3] = ansint % 10;
+
+                userWin = UserGame(ans);
+                if (userWin)
+                {
+                    break;
+                }
+                comWin = Game();
+                if (comWin)
+                {
+                    break;
+                }
+
+                double comWinRate = Math.Round(100 - ((double)list.Count / 5040) * 100);
+                double userWinRate = Math.Round(100 - ((double)userList.Count / 5040) * 100);
+                
+                Console.WriteLine("COM win rate: " + (double)(comWinRate / (comWinRate + userWinRate)) * 100 + "%, Your win rate: " + (double)(userWinRate / (comWinRate + userWinRate)) * 100 + "%...");
+            }
         }
 
         public static void ComputerGuess() {
@@ -86,33 +139,35 @@ namespace BullsAndCows
             }
             rate = ((float)list.Count / 5040) * 100;
             //rate = list.Count;
-            Console.WriteLine("Round " + count + ": " + msg +  ", give me hints. ( Win Rate: " + (100 - rate) + "% )");
+            Console.WriteLine("");
+            Console.WriteLine("Round " + count + ": " + msg +  ", give me hints. ( Guess Rate: " + (100 - rate) + "% )");
             Console.Write("How many bulls: ");
-            string bulls = Console.ReadLine();
+            int bull = Convert.ToInt32(Console.ReadLine());
             Console.Write("How many cows: ");
-            string cows = Console.ReadLine();
-            int bull = (int)char.GetNumericValue(bulls.ToCharArray()[0]);
-            int cow = (int)char.GetNumericValue(cows.ToCharArray()[0]);
+            int cow = Convert.ToInt32(Console.ReadLine());
+
 
             if (bull < 0 || bull > 4 || cow < 0 || cow > 4)
             {
                 Console.WriteLine("Digit must be 1~4.");
-                return false;
+                count--;
+                Game();
             }
             else if (bull == 4 && cow == 0){
-                Console.WriteLine("Comupter Win! Your secret number is " + guess);
+                Console.WriteLine("Comupter Win! Your secret number is " + msg);
                 return true;
             }
 
-            CheckList(bull, cow, guess);
+            CheckList(bull, cow, guess, true);
 
             if (list.Count == 1)
             {
-                Console.WriteLine("Round " + count + ": " + list[0] + ", give me hints. ( Win Rate: " + (100 - rate) + "% )");
+                Console.WriteLine("");
+                Console.WriteLine("Corfirm: " + count + ": " + list[0] + ", give me comfirm. ( Guess Rate: " + (100 - rate) + "% )");
                 Console.Write("How many bulls: ");
-                int a = (int)char.GetNumericValue(Console.ReadLine().ToCharArray()[0]);
+                int a = Convert.ToInt32(Console.ReadLine());
                 Console.Write("How many cows: ");
-                int b = (int)char.GetNumericValue(Console.ReadLine().ToCharArray()[0]);
+                int b = Convert.ToInt32(Console.ReadLine());
                 if (a != 4 || b != 0)
                 {
                     Console.WriteLine("You must type something wrong, try again...");
@@ -120,7 +175,7 @@ namespace BullsAndCows
                 }
                 else if (a == 4 && b == 0)
                 {
-                    Console.WriteLine("Comupter Win! Your secret number is " + list[0]);
+                    Console.WriteLine("Your secret number is " + list[0]);
                     return true;
                 }
                 return true;
@@ -129,6 +184,59 @@ namespace BullsAndCows
                 return true;
             }
             else {
+                return false;
+            }
+        }
+
+        public static bool UserGame(int[] ans)
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Guess a four digit number");
+            string guess = Console.ReadLine();
+
+            char[] guessed = guess.ToCharArray();
+            int bullsCount = 0;
+            int cowsCount = 0;
+
+            if (guessed.Length != 4 || (guessed[0] == guessed[1] || guessed[0] == guessed[2] || guessed[0] == guessed[3]) || guessed[1] == guessed[2] || guessed[1] == guessed[3] || guessed[2] == guessed[3])
+            {
+                Console.WriteLine("Not a valid guess. Try again");
+                return false;
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                int curguess = (int)char.GetNumericValue(guessed[i]);
+                if (curguess < 0 || curguess > 9)
+                {
+                    Console.WriteLine("Digit must be ge greater -1 and lower 10.");
+                    return false;
+                }
+
+                if (curguess == ans[i])
+                {
+                    bullsCount++;
+                }
+                else
+                {
+                    for (int j = 0; j < 4; j++)
+                    {
+                        if (curguess == ans[j])
+                            cowsCount++;
+                    }
+                }
+            }
+
+            CheckList(bullsCount, cowsCount, Convert.ToInt32(guess), false);
+
+            if (bullsCount == 4)
+            {
+                Console.WriteLine("Congratulations! You have won!");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("{0} bulls and {1} cows", bullsCount, cowsCount);
                 return false;
             }
         }
@@ -142,21 +250,44 @@ namespace BullsAndCows
             return number;
         }
 
-        public static void CheckList(int bull, int cow, int guess) {
+        public static void CheckList(int bull, int cow, int guess, bool isCOM) {
             ArrayList newList = new ArrayList();
 
-            for (int i = 0; i < list.Count; i++) {
+            if (isCOM)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
 
-                ArrayList ab = new ArrayList();
-                ab = GetAB(guess, (int)list[i]);
+                    ArrayList ab = new ArrayList();
+                    ab = GetAB(guess, (int)list[i]);
 
-                if (bull == (int)ab[0] && cow == (int)ab[1]) {
-                    newList.Add(list[i]);
+                    if (bull == (int)ab[0] && cow == (int)ab[1])
+                    {
+                        newList.Add(list[i]);
+                    }
+
                 }
 
+                list = newList;
+            }
+            else {
+                for (int i = 0; i < userList.Count; i++)
+                {
+
+                    ArrayList ab = new ArrayList();
+                    ab = GetAB(guess, (int)userList[i]);
+
+                    if (bull == (int)ab[0] && cow == (int)ab[1])
+                    {
+                        newList.Add(userList[i]);
+                    }
+
+                }
+
+                userList = newList;
             }
 
-            list = newList;
+            
         }
 
         public static bool GameForDebug(int ans)
@@ -167,6 +298,12 @@ namespace BullsAndCows
             ArrayList ab = new ArrayList();
             ab = GetAB(guess, ans);
 
+            string msg = guess.ToString();
+            if (msg.Count() == 3)
+            {
+                msg = '0' + msg;
+            }
+
             int bull = (int)ab[0];
             int cow = (int)ab[1];
 
@@ -175,11 +312,11 @@ namespace BullsAndCows
                 return true;
             }
             else if (bull == 4 && cow == 0){
-                Console.WriteLine("Comupter Win! Your secret number is " + guess);
+                Console.WriteLine("Comupter Win! Your secret number is " + msg);
                 return true;
             }
 
-            CheckList(bull, cow, guess);
+            CheckList(bull, cow, guess, true);
 
             if (list.Count == 1)
             {

@@ -16,3 +16,9 @@ C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsA
 C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
 C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.exe
 C:\Users\wabe1\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.pdb
+C:\Users\IT\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe.config
+C:\Users\IT\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe
+C:\Users\IT\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.pdb
+C:\Users\IT\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
+C:\Users\IT\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.exe
+C:\Users\IT\Documents\GitHub\BullsAndCowsCOM\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.pdb
