@@ -18,17 +18,21 @@ namespace BullsAndCows
         static void Main(string[] args)
         {
             Console.WriteLine("Mode 1: COM guess.");
-            Console.WriteLine("Mode 2: Debug.");
+            Console.WriteLine("Mode 2: User guess");
             Console.WriteLine("Mode 3: COM vs You.");
+            Console.WriteLine("Mode 4: Debug.");
             Console.Write("Which do you want: ");
             string mode = Console.ReadLine();
 
             if (mode == "1") {
                 ComputerGuess();
             } else if (mode == "2") {
-                DebugMode();
+                UserGuess();
             } else if (mode == "3") {
                 Battle();
+            } else if (mode == "4") {
+                DebugMode();
+                
             }
 
             Console.ReadKey();
@@ -57,6 +61,7 @@ namespace BullsAndCows
                 sum += count;
                 timeCount[count]++;
             }
+            Console.WriteLine("");
             Console.WriteLine("Avg Turns: " + sum / times + " Tunr(s).");
             for (int i = 1; i < timeCount.Count(); i++) {
                 Console.WriteLine("Guees for " + i + " turn(s): " + timeCount[i]);
@@ -108,6 +113,20 @@ namespace BullsAndCows
             list = GenerateList();
 
             while (!Game()) ;
+        }
+        
+        public static void UserGuess() {
+            list = GenerateList();
+            userList = GenerateList();
+            int ansint = GenerateNumberFromList();
+            int[] ans = new int[4];
+            ans[0] = ansint / 1000;
+            ans[1] = (ansint / 100) % 10;
+            ans[2] = (ansint / 10) % 10;
+            ans[3] = ansint % 10;
+                
+            while (!UserGame(ans));
+            Console.WriteLine("You guess " + userCount + " turn(s).");
         }
 
         public static ArrayList GenerateList()
@@ -190,6 +209,7 @@ namespace BullsAndCows
 
         public static bool UserGame(int[] ans)
         {
+            userCount++;
             Console.WriteLine("");
             Console.WriteLine("Guess a four digit number");
             string guess = Console.ReadLine();
@@ -300,7 +320,7 @@ namespace BullsAndCows
                 return true;
             }
             else if (bull == 4 && cow == 0){
-                Console.WriteLine("Comupter Win! Your secret number is " + msg);
+                Console.WriteLine("Secret number is " + msg);
                 return true;
             }
 
