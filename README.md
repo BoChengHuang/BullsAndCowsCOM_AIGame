@@ -8,7 +8,7 @@ Bulls and Cows game in Visual studio by C#.
 # What is this repository for? ###
 
 * Quick summary: Bulls and Cows game in Visual studio by C#.
-* Version 3.0.1
+* Version 3.1.1
 
 # How do I get set up? ###
 
