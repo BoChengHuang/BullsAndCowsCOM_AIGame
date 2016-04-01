@@ -181,8 +181,12 @@ namespace BullsAndCows
 
             if (list.Count == 1)
             {
+                msg = list[0].ToString();
+                if (msg.Count() == 3) {
+                    msg = '0' + msg;
+                }
                 Console.WriteLine("");
-                Console.WriteLine("Corfirm: " + count + ": " + list[0] + ", give me comfirm. ( Guess Rate: " + (100 - rate) + "% )");
+                Console.WriteLine("Corfirm: " + count + ": " + msg + ", give me comfirm. ( Guess Rate: " + (100 - rate) + "% )");
                 Console.Write("How many bulls: ");
                 int a = Convert.ToInt32(Console.ReadLine());
                 Console.Write("How many cows: ");
@@ -194,7 +198,7 @@ namespace BullsAndCows
                 }
                 else if (a == 4 && b == 0)
                 {
-                    Console.WriteLine("Your secret number is " + list[0]);
+                    Console.WriteLine("Your secret number is " + msg);
                     return true;
                 }
                 return true;
