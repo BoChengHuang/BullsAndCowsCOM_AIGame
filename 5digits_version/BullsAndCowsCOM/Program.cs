@@ -1,0 +1,391 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BullsAndCows
+{
+    class Program
+    {
+        public static ArrayList list = new ArrayList();
+        public static int count = 0;
+
+        public static ArrayList userList = new ArrayList();
+        public static int userCount = 0;
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Mode 1: COM guess.");
+            Console.WriteLine("Mode 2: User guess");
+            Console.WriteLine("Mode 3: COM vs You.");
+            Console.WriteLine("Mode 4: Debug.");
+            Console.Write("Which do you want: ");
+            string mode = Console.ReadLine();
+
+            if (mode == "1") {
+                ComputerGuess();
+            } else if (mode == "2") {
+                UserGuess();
+            } else if (mode == "3") {
+                Battle();
+            } else if (mode == "4") {
+                DebugMode();
+                
+            }
+
+            Console.ReadKey();
+        }
+
+        public static void DebugMode()
+        {
+
+            list = GenerateList();
+            ArrayList random = new ArrayList();
+            int[] timeCount = Enumerable.Repeat(0, 10).ToArray();
+
+            Console.Write("How many times do you want to run: ");
+            int times = Convert.ToInt32(Console.ReadLine());
+
+            for (int i = 0; i < times; i++) {
+                random.Add(GenerateNumberFromList());
+            }
+
+            float sum = 0;
+            for (int i = 0; i < times; i++)
+            {
+                count = 0;
+                list = GenerateList();
+                while (!GameForDebug((int)random[i])) ;
+                sum += count;
+                timeCount[count]++;
+            }
+            Console.WriteLine("");
+            Console.WriteLine("Avg Turns: " + sum / times + " Tunr(s).");
+            for (int i = 1; i < timeCount.Count(); i++) {
+                Console.WriteLine("Guees for " + i + " turn(s): " + timeCount[i]);
+            }
+
+        }
+
+        public static void Battle() {
+            Console.WriteLine("Guess mutual numbers, as soon as posiible.");
+            Console.WriteLine("");
+            Console.WriteLine("Human first...");
+
+            list = GenerateList();
+            userList = GenerateList();
+            bool userWin = false;
+            bool comWin = false;
+            int ansint = GenerateNumberFromList();
+
+            Console.WriteLine(ansint);
+
+            while (!userWin && !comWin) {
+
+                //Console.WriteLine(ansint);
+                int[] ans = new int[4];
+
+                ans[0] = ansint / 10000;
+                ans[1] = (ansint / 1000) % 10;
+                ans[2] = (ansint / 100) % 10;
+                ans[3] = (ansint / 10) % 10;
+                ans[4] = ansint % 10;
+
+                userWin = UserGame(ans);
+                if (userWin)
+                {
+                    break;
+                }
+                comWin = Game();
+                if (comWin)
+                {
+                    break;
+                }
+
+                double comWinRate = Math.Round(100 - ((double)list.Count / 30240) * 100);
+                double userWinRate = Math.Round(100 - ((double)userList.Count / 30240) * 100);
+                
+                Console.WriteLine("COM win rate: " + (double)(comWinRate / (comWinRate + userWinRate)) * 100 + "%, Your win rate: " + (double)(userWinRate / (comWinRate + userWinRate)) * 100 + "%...");
+            }
+        }
+
+        public static void ComputerGuess() {
+
+            list = GenerateList();
+
+            while (!Game()) ;
+        }
+        
+        public static void UserGuess() {
+            list = GenerateList();
+            userList = GenerateList();
+            int ansint = GenerateNumberFromList();
+            int[] ans = new int[4];
+            ans[0] = ansint / 10000;
+            ans[1] = (ansint / 1000) % 10;
+            ans[2] = (ansint / 100) % 10;
+            ans[3] = (ansint / 10) % 10;
+            ans[4] = ansint % 10;
+
+            while (!UserGame(ans));
+            Console.WriteLine("You guess " + userCount + " turn(s).");
+        }
+
+        public static ArrayList GenerateList()
+        {
+            ArrayList list = new ArrayList();
+
+            for (int i = 1234; i <= 98765; i++) {
+                int d1 = i / 10000;
+                int d2 = (i / 1000) % 10;
+                int d3 = (i / 100) % 10;
+                int d4 = (i / 10) % 10;
+                int d5 = i % 10;
+
+                if (d1 != d2 && d1 != d3 && d1 != d4 && d1 != d5 && d2 != d3 && d2 != d4 && d2 != d5 && d3 != d4 && d3 != d5 && d4 != d5) {
+                    list.Add(i);
+                }
+            }
+
+            return list;
+        }
+
+        public static bool Game()
+        {
+            int guess = GenerateNumberFromList();
+            float rate;
+            count++;
+            string msg = guess.ToString();
+            if (msg.Count() == 4) {
+                msg = '0' + msg;
+            }
+            rate = ((float)list.Count / 30240) * 100;
+            //rate = list.Count;
+            Console.WriteLine("");
+            Console.WriteLine("Round " + count + ": " + msg +  ", give me hints. ( Guess Rate: " + (100 - rate) + "% )");
+            Console.Write("How many bulls: ");
+            int bull = Convert.ToInt32(Console.ReadLine());
+            Console.Write("How many cows: ");
+            int cow = Convert.ToInt32(Console.ReadLine());
+
+
+            if (bull < 0 || bull > 5 || cow < 0 || cow > 5)
+            {
+                Console.WriteLine("Digit must be 1~4.");
+                count--;
+                Game();
+            }
+            else if (bull == 5 && cow == 0){
+                Console.WriteLine("Comupter Win! Your secret number is " + msg);
+                return true;
+            }
+
+            CheckList(bull, cow, guess, true);
+
+            if (list.Count == 1)
+            {
+                msg = list[0].ToString();
+                if (msg.Count() == 4) {
+                    msg = '0' + msg;
+                }
+                Console.WriteLine("");
+                Console.WriteLine("Corfirm: " + count + ": " + msg + ", give me comfirm. ( Guess Rate: " + (100 - rate) + "% )");
+                Console.Write("How many bulls: ");
+                int a = Convert.ToInt32(Console.ReadLine());
+                Console.Write("How many cows: ");
+                int b = Convert.ToInt32(Console.ReadLine());
+                if (a != 5 || b != 0)
+                {
+                    Console.WriteLine("You must type something wrong, try again...");
+                    //Console.WriteLine(list[0]);
+                }
+                else if (a == 5 && b == 0)
+                {
+                    Console.WriteLine("Your secret number is " + msg);
+                    return true;
+                }
+                return true;
+            } else if (list.Count == 0){
+                Console.WriteLine("You must type something wrong, try again...");
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        public static bool UserGame(int[] ans)
+        {
+            userCount++;
+            Console.WriteLine("");
+            Console.WriteLine("Guess a four digit number");
+            string guess = Console.ReadLine();
+
+            char[] guessed = guess.ToCharArray();
+            int bullsCount = 0;
+            int cowsCount = 0;
+
+            if (guessed.Length != 5 || (guessed[0] == guessed[1] || guessed[0] == guessed[2] || guessed[0] == guessed[3]) || guessed[0] == guessed[4] || guessed[1] == guessed[2] || guessed[1] == guessed[3] || guessed[1] == guessed[4] ||guessed[2] == guessed[3] || guessed[2] == guessed[4])
+            {
+                Console.WriteLine("Not a valid guess. Try again");
+                return false;
+            }
+
+            int curAns = 0;
+            int curGuess = 0;
+            for (int i = 0; i < 5; i++) {
+                double dec = Math.Pow(10, 4 - i);
+                curAns = (int)(curAns + ans[i] * dec);
+                curGuess = (int)(curGuess + (int)char.GetNumericValue(guessed[i]) * dec);
+            }
+
+            ArrayList ab = new ArrayList();
+            ab = GetAB(curGuess, curAns);
+
+            CheckList(bullsCount, cowsCount, Convert.ToInt32(guess), false);
+
+            if ((int)ab[0] == 5)
+            {
+                Console.WriteLine("Congratulations! You have won!");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("{0} bulls and {1} cows", (int)ab[0], (int)ab[1]);
+                return false;
+            }
+        }
+
+        public static int GenerateNumberFromList() {
+            int number = 0;
+            //Random rnd = new Random();
+            Random rnd = new Random(Guid.NewGuid().GetHashCode());
+            int index = rnd.Next(1, list.Count);
+            number = (int)list[index];
+            return number;
+        }
+
+        public static void CheckList(int bull, int cow, int guess, bool isCOM) {
+            ArrayList newList = new ArrayList();
+
+            if (isCOM)
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+
+                    ArrayList ab = new ArrayList();
+                    ab = GetAB(guess, (int)list[i]);
+
+                    if (bull == (int)ab[0] && cow == (int)ab[1])
+                    {
+                        newList.Add(list[i]);
+                    }
+
+                }
+
+                list = newList;
+            }
+            else {
+                for (int i = 0; i < userList.Count; i++)
+                {
+
+                    ArrayList ab = new ArrayList();
+                    ab = GetAB(guess, (int)userList[i]);
+
+                    if (bull == (int)ab[0] && cow == (int)ab[1])
+                    {
+                        newList.Add(userList[i]);
+                    }
+
+                }
+
+                userList = newList;
+            }
+
+            
+        }
+
+        public static bool GameForDebug(int ans)
+        {
+            int guess = GenerateNumberFromList();
+            count++;
+
+            ArrayList ab = new ArrayList();
+            ab = GetAB(guess, ans);
+
+            string msg = guess.ToString();
+            if (msg.Count() == 4)
+            {
+                msg = '0' + msg;
+            }
+
+            int bull = (int)ab[0];
+            int cow = (int)ab[1];
+
+            if (bull < 0 || bull > 5 || cow < 0 || cow > 5)
+            {
+                return true;
+            }
+            else if (bull == 5 && cow == 0){
+                Console.WriteLine("Secret number is " + msg);
+                return true;
+            }
+
+            CheckList(bull, cow, guess, true);
+
+            if (list.Count == 1)
+            {
+                return true;
+            }
+            else if (list.Count == 0)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        public static ArrayList GetAB(int guess, int ans) {
+            ArrayList ab = new ArrayList();
+            int a = 0;
+            int b = 0;
+            int[] listArr = new int[5];
+            int[] guessArr = new int[5];
+            listArr[0] = ans / 10000;
+            listArr[1] = (ans / 1000) % 10;
+            listArr[2] = (ans / 100) % 10;
+            listArr[3] = (ans / 10) % 10;
+            listArr[4] = ans % 10;
+
+            guessArr[0] = guess / 10000;
+            guessArr[1] = (guess / 1000) % 10;
+            guessArr[2] = (guess / 100) % 10;
+            guessArr[3] = (guess / 10) % 10;
+            guessArr[4] = guess % 10;
+
+            for (int i = 0; i < 5; i++) {
+                if (guessArr[i] == listArr[i])
+                {
+                    a++;
+                }
+                else {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (guessArr[j] == listArr[i]) {
+                            b++;
+                        }
+                    }
+                }
+            }
+
+            ab.Add(a);
+            ab.Add(b);
+
+            return ab;
+        }
+
+    }
+}
