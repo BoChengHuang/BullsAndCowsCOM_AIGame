@@ -326,7 +326,7 @@ namespace BullsAndCows
                 return true;
             }
             else if (bull == 4 && cow == 0){
-                Console.WriteLine("Secret number is " + msg);
+                Console.WriteLine("Secret number is " + msg + " COM guess " + count + " time(s)");
                 return true;
             }
 

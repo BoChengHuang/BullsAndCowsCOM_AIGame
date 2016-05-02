@@ -28,3 +28,9 @@ C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM_5digits\BullsAndC
 C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM_5digits\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
 C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM_5digits\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe
 C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM_5digits\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.pdb
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\5digits_version\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe.config
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\5digits_version\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.exe
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\5digits_version\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.pdb
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\5digits_version\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.exe
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\5digits_version\BullsAndCowsCOM\bin\Debug\BullsAndCowsCOM.pdb
+C:\Users\CNSLab-Mac min-Win10\Documents\GitHub\BullsAndCowsCOM\5digits_version\BullsAndCowsCOM\obj\Debug\BullsAndCowsCOM.csprojResolveAssemblyReference.cache
