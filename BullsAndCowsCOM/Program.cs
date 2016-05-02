@@ -81,7 +81,6 @@ namespace BullsAndCows
             bool comWin = false;
             int ansint = GenerateNumberFromList();
 
-            Console.WriteLine(ansint);
 
             while (!userWin && !comWin) {
 

@@ -80,12 +80,11 @@ namespace BullsAndCows
             bool comWin = false;
             int ansint = GenerateNumberFromList();
 
-            Console.WriteLine(ansint);
 
             while (!userWin && !comWin) {
 
                 //Console.WriteLine(ansint);
-                int[] ans = new int[4];
+                int[] ans = new int[5];
 
                 ans[0] = ansint / 10000;
                 ans[1] = (ansint / 1000) % 10;
@@ -173,7 +172,7 @@ namespace BullsAndCows
 
             if (bull < 0 || bull > 5 || cow < 0 || cow > 5)
             {
-                Console.WriteLine("Digit must be 1~4.");
+                Console.WriteLine("Digit must be 1~5.");
                 count--;
                 Game();
             }
@@ -220,7 +219,7 @@ namespace BullsAndCows
         {
             userCount++;
             Console.WriteLine("");
-            Console.WriteLine("Guess a four digit number");
+            Console.WriteLine("Guess a five digits number");
             string guess = Console.ReadLine();
 
             char[] guessed = guess.ToCharArray();
