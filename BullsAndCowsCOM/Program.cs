@@ -63,7 +63,7 @@ namespace BullsAndCows
                 timeCount[count]++;
             }
             Console.WriteLine("");
-            Console.WriteLine("Avg Turns: " + sum / times + " Tunr(s).");
+            Console.WriteLine("Avg Turns: " + sum / times + " turn(s).");
             for (int i = 1; i < timeCount.Count(); i++) {
                 Console.WriteLine("Guees for " + i + " turn(s): " + timeCount[i]);
             }
