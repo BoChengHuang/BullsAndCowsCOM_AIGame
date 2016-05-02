@@ -45,6 +45,7 @@ namespace BullsAndCows
             ArrayList random = new ArrayList();
             int[] timeCount = Enumerable.Repeat(0, 10).ToArray();
 
+
             Console.Write("How many times do you want to run: ");
             int times = Convert.ToInt32(Console.ReadLine());
 
@@ -79,6 +80,8 @@ namespace BullsAndCows
             bool userWin = false;
             bool comWin = false;
             int ansint = GenerateNumberFromList();
+
+            Console.WriteLine(ansint);
 
             while (!userWin && !comWin) {
 
